@@ -1,0 +1,16 @@
+
+<h1>Welcome!</h1>
+
+<div class="container">
+        <p>
+            <input type="number" min="0" [(ngModel)]="sideA">
+        </p>
+        <button (click)="calculateArea()">Calculate area</button>
+        <button (click)="calculatePerimiter()">Calculate perimiter</button>
+    <h3>
+        Area: {{area}}
+    </h3>
+    <h3>
+        Perimiter: {{perimiter}}
+    </h3>
+</div>
