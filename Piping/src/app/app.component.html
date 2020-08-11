@@ -1,0 +1,12 @@
+
+<h1>Welcome!</h1>
+
+<div class="container">
+        <p>
+            <input type="text" name="inputField"
+            (ngModelChange)="inputText=$event" />
+        </p>
+
+    <h3>Morse Code: {{inputText | morse}}</h3>
+</div>
+<router-outlet></router-outlet>
