@@ -1,0 +1,11 @@
+<div class="container">
+  <p>
+    Trump er en idiot :D
+  </p>
+  <div *ngFor="let tweet of twat" class="tweet">
+    <p>{{tweet.date}}</p>
+    <p [ngClass]="{
+            stupid : tweet.text.includes('Democrat')
+        }">{{tweet.text}}</p>
+    <p>Likes : {{tweet.likes}}</p>
+  </div>
