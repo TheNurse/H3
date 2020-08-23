@@ -1,0 +1,51 @@
+<h1>Welcome!</h1>
+
+<form [formGroup]="diktatorForm" (ngSubmit)="onDiktatorSubmit()">
+  <div class="container">
+
+    <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field>
+          <mat-label>First name</mat-label>
+          <input matInput formControlName="firstName">
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName">
+        </mat-form-field></td>
+      </tr></table>
+      <table class="example-full-width" cellspacing="0"><tr>
+        <td>
+          <mat-form-field>
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="dobPicker" formControlName="dateOfBirth">
+          <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker></mat-datepicker>
+        </mat-form-field>
+      </td>
+        <td>
+          <mat-form-field>
+          <mat-label>Date of Death</mat-label>
+          <input matInput [matDatepicker]="dodPicker" formControlName="dateOfDeath">
+          <mat-datepicker-toggle matSuffix [for]="dodPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dodPicker></mat-datepicker>
+        </mat-form-field>
+      </td>
+      </tr></table>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="submit" >Submit</button>
+  </div>
+</form>
+
+<div class="container">
+  <ul>
+    <li *ngFor="let diktator of diktators">
+      <p>{{diktator.firstName}} - {{diktator.lastName}}</p>
+      <p> Born: {{diktator.dateOfBirth}}. </p>
+      <p *ngIf="diktator.dateOfDeath != null && diktator.dateOfDeath != undefined"> Dead: {{diktator.dateOfDeath}}</p>
+      <p> Desription: {{diktator.description}}</p>
+    </li>
+  </ul>
+</div>
