@@ -1,48 +1,62 @@
-import React, { FC, useState, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC, useState, FormEvent } from "react";
+import { useDispatch } from "react-redux";
+import Button from "@material-ui/core/Button";
 
-import { setAlert } from '../store/actions/alertActions';
-import { getWeather, setLoading } from '../store/actions/weatherActions';
+import { setAlert } from "../store/actions/alertActions";
+import { getWeather, setLoading } from "../store/actions/weatherActions";
 
 interface SearchProps {
-    title: string;
+  title: string;
 }
 
 const Search: FC<SearchProps> = ({ title }) => {
-    const dispatch = useDispatch()
-    const [city, setCity] = useState('')
+  const dispatch = useDispatch();
+  const [city, setCity] = useState("");
 
-    const handleOnChange = (e: FormEvent<HTMLInputElement>) => {
-        setCity(e.currentTarget.value);
+  const handleChange = (e: FormEvent<HTMLInputElement>) => {
+    setCity(e.currentTarget.value);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (city.trim() === "") {
+      return dispatch(setAlert("City is required!"));
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        if(city.trim() === '') {
-            return dispatch(setAlert('City is required!'));
-        }
-
-        dispatch(setLoading());
-        dispatch(getWeather(city));
-        setCity('');
-    }
-    return (
-        <div>
-            <div>
-                <div>
-                    <h1>{title}</h1>
-                    <form onSubmit={handleSubmit}>
-                        <input type="text"
-                        className="input has-text-centered mb-2"
-                        placeholder="By navn"
-                        style={{maxWidth: 300}}
-                        value={city}
-                        onChange={handleOnChange}/>
-                        <button className="button is-primary is-fullwidth" sytle={{maxWidth: 300, margin: '0 auto'}}>Search</button>
-                    </form>
-                </div>
-            </div>
+    dispatch(setLoading());
+    dispatch(getWeather(city));
+    setCity("");
+  };
+  return (
+    <div className="hero is-light has-text-centered">
+      <div className="hero-body">
+        <div className="container">
+          <h1 className="title">{title}</h1>
+          <form className="py-5" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              className="input has-text-centered mb-2"
+              placeholder="By navn"
+              style={{ maxWidth: 300 }}
+              value={city}
+              onChange={handleChange}
+            />
+            <br />
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ margin: "0 auto" }}
+              disableElevation
+            >
+              Search
+            </Button>
+          </form>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
+
+export default Search;
